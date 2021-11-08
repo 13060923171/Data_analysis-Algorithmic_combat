@@ -151,6 +151,17 @@ def generate_big_rules(L, support_data, min_conf):
             sub_set_list.append(freq_set)
     return big_rule_list
 
+def Lift(DataList, confidence_data, Datanum, suppData):
+    for num in range(len(DataList)):
+        str1 = ''
+        str2 = ''
+        str1 = str(DataList[num][1]) + '->' + str(DataList[num][2])
+        Lift_data[str1] = confidence_data[str1] / suppData[Datanum[DataList[num][2]]]
+        str2 = str(DataList[num][2]) + '->' + str(DataList[num][1])
+        Lift_data[str2] = confidence_data[str2] / suppData[Datanum[DataList[num][1]]]
+        # print(Lift_data)
+        # print(Lift_data)
+    return Lift_data
 
 if __name__ == "__main__":
     """
@@ -158,8 +169,7 @@ if __name__ == "__main__":
     """
     data_set = load_data_set()
     L, support_data = generate_L(data_set, k=3, min_support=0.1)
-    print(L)
-    big_rules_list = generate_big_rules(L, support_data, min_conf=1)
+    big_rules_list = generate_big_rules(L, support_data, min_conf=0.8)
     def get_support(x):
         for Lk in L:
             # print("="*50)
@@ -175,4 +185,4 @@ if __name__ == "__main__":
         tiaojian = str(item[1])
         if 'A' in tiaojian and ',' not in tiaojian:
             support = get_support(item[0])
-            print(item[0], "=>", item[1], "conf: ", item[2],"support: ", support)
+            print(item[0], "=>", item[1], "conf: ", item[2],"support: ", support,"Lift: ",item[2]/support)
