@@ -131,6 +131,7 @@ if __name__ == '__main__':
         X_data_train, y_data_train, X_data_test, y_data_test = item
         clf = CART_CLF()
         clf.fit(X_data_train, y_data_train)
+
         score = 0
         #对预测数据进行比对
         for X, y in zip(X_data_test,y_data_test):
